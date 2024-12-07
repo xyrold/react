@@ -1,0 +1,82 @@
+/* Overlay to cover the entire screen */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-end; /* Align modal to the right */
+    align-items: center;
+    z-index: 999;
+    transition: opacity 0.6s ease;
+  }
+  
+  /* Modal's actual container */
+  .modalx {
+    background-color: white;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    right: -50%; /* Start off-screen to the right */
+    top: 0;
+    transition: right 0.3s ease; /* Animate sliding in from right */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  /* Modal content */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .modal-body {
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 15px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .close-btn {
+    border: none;
+    background: none;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+  
+  /* When modal is open, slide it to the left */
+  .modalx.open {
+    right: 0; /* Move modal into the view */
+  }
+  .modalx.slide-in {
+    right: 0; /* Slide into view */
+  }
+  
+  .modalx.slide-out {
+    right: -50%; /* Slide out of view */
+  }
+  
+  /* Optional styling for the close button */
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }

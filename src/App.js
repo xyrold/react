@@ -1,25 +1,50 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes, Outlet, Navigate } from 'react-router-dom';
+import Cookies from "js-cookie";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import LoginPage from './pages/public/Login';
+import EmployeesList from './components/dashboard/UserList';
+import DashboardPage from './pages/private/Dashboard';
+
+//loading ui
+import { LoadingProvider } from './components/loading/LoadingContext';
+import LoadingOverlay  from './components/loading/LoadingOverlay';
+
+//app variables
+window.API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+window.API_KEY = process.env.REACT_APP_API_KEY;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <LoadingProvider>
+      <LoadingOverlay />
+    <BrowserRouter>
+      <Routes>
+        <Route element={ <CheckAuth />}>
+        <Route path="/" element={ <LoginPage /> }></Route>
+          <Route path="/login" element={ <LoginPage /> }></Route>
+        </Route>
+        <Route element={ <ProtectedRoute />}>
+          <Route path="/dashboard" element={ <DashboardPage /> }></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </LoadingProvider>
   );
 }
+
+const ProtectedRoute = () => {
+  // Check if the "auth" cookie exists
+  const isAuthenticated = Cookies.get("auth");
+
+  return isAuthenticated ? <Outlet/> : <Navigate to="/login" replace />;
+};
+const CheckAuth = () => {
+  // Check if the "auth" cookie exists
+  const isAuthenticated = Cookies.get("auth");
+
+  return !isAuthenticated ? <Outlet/> : <Navigate to="/dashboard" replace />;
+};
 
 export default App;
