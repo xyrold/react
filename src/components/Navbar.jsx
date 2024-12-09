@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { DashContext } from "../pages/private/Dashboard";
+import { MainLayoutContext } from "./../pages/private/MainLayout";
 
 const NavigationBar = () => {
-    const {user, handleLogout} = useContext(DashContext);
+    const {user, handleLogout} = useContext(MainLayoutContext);
+    console.log(user);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -29,13 +29,13 @@ const NavigationBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Home
+              <a className="nav-link" href="/dashboard">
+                Users
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                About
+              <a className="nav-link" href="/chatai">
+                Chat Ai
               </a>
             </li>
           </ul>

@@ -4,7 +4,9 @@ import Cookies from "js-cookie";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import LoginPage from './pages/public/Login';
-import EmployeesList from './components/dashboard/UserList';
+
+import MainLayout from './pages/private/MainLayout';
+import ChatAiPage from './pages/private/ChatAi';
 import DashboardPage from './pages/private/Dashboard';
 
 //loading ui
@@ -22,11 +24,14 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={ <CheckAuth />}>
-        <Route path="/" element={ <LoginPage /> }></Route>
+          <Route path="/" element={ <LoginPage /> }></Route>
           <Route path="/login" element={ <LoginPage /> }></Route>
         </Route>
         <Route element={ <ProtectedRoute />}>
-          <Route path="/dashboard" element={ <DashboardPage /> }></Route>
+          <Route element={ <MainLayout />}>
+            <Route path="/chatai" element={ <ChatAiPage /> }></Route>
+            <Route path="/dashboard" element={ <DashboardPage /> }></Route>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
